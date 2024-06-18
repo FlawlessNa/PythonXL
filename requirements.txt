@@ -1,0 +1,3 @@
+pywin32>=306
+chainladder>=0.8.23
+pandas>=2.2.2
