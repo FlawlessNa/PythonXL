@@ -8,6 +8,7 @@ __pycache__/
 
 .idea
 data/
+output/
 # Distribution / packaging
 .Python
 build/
