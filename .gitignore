@@ -9,6 +9,8 @@ __pycache__/
 .idea
 data/
 output/
+tryangle/
+.gitmodules
 # Distribution / packaging
 .Python
 build/

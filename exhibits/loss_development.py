@@ -17,6 +17,7 @@ class LossDevelopmentExhibit(BaseExhibit):
         if not self.data.is_cumulative:
             self.data = self.data.incr_to_cum()
         self._validations = self.data.index.to_dict(orient='list')
+        self._amounts = self.data.columns.to_list()
 
     def load_into(self, wb: DispatchBaseClass):
         try:
