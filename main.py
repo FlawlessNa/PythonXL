@@ -1,3 +1,4 @@
+import atexit
 import chainladder as cl
 import os
 import win32com.client
@@ -7,20 +8,26 @@ from events import ExcelApplicationEvents
 from excel.utilities import get_range_ref_for_shape
 from exhibits import LossDevelopmentExhibit
 
-RUN_ID = 'dev'
-WB_ID = 'test.xlsx'
+
+def cleanup(app):
+    if app is not None:
+        app.Quit()
+        app.DisplayAlerts = True
+
 
 if __name__ == '__main__':
     # try:
+    import time
+    start = time.perf_counter()
     data = cl.load_sample('prism').groupby(['Line', 'Type']).sum()
+    print(f"Data loaded in {time.perf_counter() - start:.2f}s")
     # app = win32com.client.DispatchWithEvents("Excel.Application", ExcelApplicationEvents)
-    app = win32com.client.Dispatch("Excel.Application")
-    if os.path.exists(f'output/{RUN_ID}'):
-        wb = win32com.client.Dispatch(app.Workbooks.Open(f'output/{RUN_ID}/{WB_ID}'))
-    else:
-        wb = win32com.client.Dispatch(app.Workbooks.Add())
     ldf_exhibit = LossDevelopmentExhibit(data)
-    wb = ldf_exhibit.load_into(wb)
-    breakpoint()
-    # finally:
-    #     os.remove(f'output/{RUN_ID}')
+
+    app = win32com.client.Dispatch("Excel.Application")
+    app.Visible = True
+    app.DisplayAlerts = False
+    atexit.register(cleanup, app)
+    wb = win32com.client.Dispatch(app.Workbooks.Add())
+    ldf_exhibit.load_into(wb)
+
