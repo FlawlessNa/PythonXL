@@ -44,7 +44,9 @@ class LossDevelopmentExhibit:
 
         num_values = 0
         for segment, values in self._validations.items():
-            ole = self._ws.OLEObjects().Add("Forms.ListBox.1")  # TODO - Dispatch with Events
+            ole = win32com.client.Dispatch(
+                self._ws.OLEObjects().Add("Forms.ListBox.1")
+            )
             cell = self._ws.Cells(num_values + 1, 1)
             ole.Left, ole.Top, ole.Width = cell.Left, cell.Top, cell.Width
             ole.Height = cell.Height * len(values)
