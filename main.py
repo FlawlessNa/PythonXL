@@ -16,6 +16,7 @@ def cleanup(app):
 
 
 if __name__ == '__main__':
+    win32com.client.gencache.EnsureDispatch("Excel.Application")
     # try:
     import time
     start = time.perf_counter()

@@ -1,7 +1,9 @@
 import chainladder as cl
 import pywintypes
+import win32com.client
 from win32com.client import DispatchBaseClass, constants as c
 from excel.utilities import get_range_ref_for_shape
+from events.OLE_object import OLEObjectEvents
 from .base import BaseExhibit
 
 
@@ -19,9 +21,9 @@ class LossDevelopmentExhibit:
 
     def load_into(self, wb: DispatchBaseClass):
         if self._ws_name in (ws.Name for ws in wb.Worksheets):
-            self._ws = wb.Worksheets(self._ws_name)
+            self._ws = win32com.client.Dispatch(wb.Worksheets(self._ws_name))
         else:
-            self._ws = wb.Worksheets.Add()
+            self._ws = win32com.client.Dispatch(wb.Worksheets.Add())
             self._ws.Name = self._ws_name
         self._add_dropdowns()
         # self.add_segment_dropdowns(ws)
