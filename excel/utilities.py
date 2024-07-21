@@ -16,5 +16,5 @@ def get_range_ref_for_shape(
     :return: The range reference for the shape.
     """
     first_col_number = column_index_from_string(first_col)
-    last_col = get_column_letter(first_col_number + num_cols)
-    return f'{first_col}{first_row}:{last_col}{first_row+num_rows}'
+    last_col = get_column_letter(first_col_number + num_cols - 1)
+    return f'{first_col}{first_row}:{last_col}{first_row+num_rows-1}'

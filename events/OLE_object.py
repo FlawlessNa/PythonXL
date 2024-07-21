@@ -2,7 +2,7 @@ from abc import ABC
 
 
 # noinspection PyPep8Naming
-class OLEObjectEvents(ABC):
+class OLEObjectEvents:
     """
     Events that can be triggered through interactions with an OLEObject object in Excel.
     """
@@ -110,6 +110,7 @@ class OLEObjectEvents(ABC):
         the user presses a key. KeyUp occurs when the user releases a key.
         """
         pass
+
     def OnKeyUp(self, *args, **kwargs) -> None:
         """
         Occur in sequence when a user presses and releases a key. KeyDown occurs when

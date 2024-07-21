@@ -1,1 +1,1 @@
-from .loss_development import LossDevelopmentExhibit
+from exhibits.loss_development.loss_development import LossDevelopmentExhibit
